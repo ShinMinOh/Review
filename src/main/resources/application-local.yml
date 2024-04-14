@@ -14,3 +14,4 @@ logging:
     org.springframework.security: trace
     com.zaxxer.hikari: TRACE
     com.zaxxer.hikari.HikariConfig: DEBUG
+    org.hibernate.SQL: debug
