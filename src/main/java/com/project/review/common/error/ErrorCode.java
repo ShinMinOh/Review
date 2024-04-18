@@ -16,9 +16,11 @@ public enum ErrorCode {
 
   //User
   USER_NOT_FOUND(404, "U1", "해당 유저가 존재하지 않습니다"),
-  DUPLICATED_USER(400, "U2", "이미 가입되어 있는 유저입니다");
+  DUPLICATED_USER(400, "U2", "이미 가입되어 있는 유저입니다"),
 
-
+  //Restaurant
+  RESTAURANT_NOT_FOUND(404, "R1", "해당 레스토랑이 존재하지 않습니다"),
+  INVALID_RESTAURANT_RELATION(400, "R2", "잘못된 요청입니다");
 
 
   private final int status;
