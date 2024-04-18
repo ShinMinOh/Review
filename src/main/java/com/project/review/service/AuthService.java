@@ -11,6 +11,7 @@ import com.project.review.repository.MemberRepository;
 import com.project.review.repository.RefreshTokenRepository;
 import com.project.review.service.exception.DuplicatedUserException;
 import com.project.review.service.exception.LogoutUserException;
+import com.project.review.service.exception.NotMatchTokenUserException;
 import com.project.review.service.exception.RefreshTokenNotValidException;
 import com.project.review.service.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -86,7 +87,7 @@ public class AuthService {
 
     // 4. Refresh Token 일치하는지 검사
     if(!refreshToken.getValue().equals(tokenRequestDto.refreshToken())){
-      throw new UserNotFoundException();
+      throw new NotMatchTokenUserException();
     }
 
     // 5. 새로운 토큰 생성
