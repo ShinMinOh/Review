@@ -1,8 +1,14 @@
 package com.project.review.controller.request;
 
+import java.time.LocalDateTime;
+
 public record SaveMenuRequestDto(
-    String menuName,
-    Integer price
+
+    Long menuId,
+    String name,
+    Integer price,
+    LocalDateTime createdAt,
+    LocalDateTime modified
 ) {
 
 }
