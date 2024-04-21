@@ -1,6 +1,7 @@
 package com.project.review.service;
 
 import com.project.review.controller.request.SaveMenuRequestDto;
+import com.project.review.controller.response.AllRestaurantsResponseDto;
 import com.project.review.model.Member;
 import com.project.review.model.Menu;
 import com.project.review.model.Restaurant;
@@ -11,9 +12,12 @@ import com.project.review.service.exception.InvalidRestaurantException;
 import com.project.review.service.exception.RestaurantNotFoundException;
 import com.project.review.service.exception.UserNotFoundException;
 import com.project.review.service.usecase.DeleteRestaurantCommand;
+import com.project.review.service.usecase.DetailRestaurantDto;
 import com.project.review.service.usecase.ModifyRestaurantCommand;
+import com.project.review.service.usecase.RestaurantDto;
 import com.project.review.service.usecase.SaveRestaurantCommand;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +45,40 @@ public class RestaurantService {
     return restaurantToSave;
   }
 
+  @Transactional(readOnly = true)
+  public List<RestaurantDto> getAllRestaurants(){
+    List<Restaurant> restaurants = restaurantRepository.findAll();
+
+    List<RestaurantDto> restaurantList = restaurants.stream().map((restaurant) -> RestaurantDto.builder()
+        .restaurantId(restaurant.getId())
+        .restaurantName(restaurant.getName())
+        .address(restaurant.getAddress())
+        .createdAt(restaurant.getCreatedAt())
+        .modifiedAt(restaurant.getModifiedAt())
+        .build()).toList();
+
+    return restaurantList;
+  }
+
+  @Transactional(readOnly = true)
+  public DetailRestaurantDto getSingleRestaurant(Long restaurantId){
+    Restaurant restaurant = restaurantRepository.findById(restaurantId)
+        .orElseThrow(()-> new RestaurantNotFoundException(restaurantId));
+
+    List<Menu> menus = menuRepository.findAllByRestaurantId(restaurantId);
+
+    DetailRestaurantDto DetailsOfRestaurant = DetailRestaurantDto.builder()
+        .restaurantId(restaurant.getId())
+        .restaurantName(restaurant.getName())
+        .address(restaurant.getAddress())
+        .createdAt(restaurant.getCreatedAt())
+        .modifiedAt(restaurant.getModifiedAt())
+        .menus(menus)
+        .build();
+
+    return DetailsOfRestaurant;
+  }
+
   @Transactional
   public void modifyRestaurant(ModifyRestaurantCommand modifyRestaurantCommand){
     //레스토랑 정보 수정
@@ -59,7 +97,7 @@ public class RestaurantService {
     modifyRestaurantCommand.menus().forEach((menu) -> {
       Menu menuToModify = Menu.builder()
           .restaurant(restaurantToModify)
-          .name(menu.menuName())
+          .name(menu.name())
           .price(menu.price())
           .build();
 
@@ -84,13 +122,13 @@ public class RestaurantService {
 
   private Restaurant findRestaurant(Long restaurantId) {
     return restaurantRepository.findById(restaurantId)
-        .orElseThrow(RestaurantNotFoundException::new);
+        .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
   }
 
   private static Menu makeMenu(SaveMenuRequestDto menu, Restaurant restaurantToSave) {
     return Menu.builder()
         .restaurant(restaurantToSave)
-        .name(menu.menuName())
+        .name(menu.name())
         .price(menu.price())
         .build();
   }

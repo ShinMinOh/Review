@@ -2,11 +2,16 @@ package com.project.review.controller;
 
 import com.project.review.controller.request.ModifyRestaurantRequestDto;
 import com.project.review.controller.request.SaveRestaurantRequestDto;
+import com.project.review.controller.response.AllRestaurantsResponseDto;
+import com.project.review.controller.response.RestaurantDetailResponseDto;
 import com.project.review.model.Restaurant;
 import com.project.review.service.RestaurantService;
 import com.project.review.service.usecase.DeleteRestaurantCommand;
+import com.project.review.service.usecase.DetailRestaurantDto;
+import com.project.review.service.usecase.RestaurantDto;
 import jakarta.validation.constraints.Min;
 import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -45,14 +50,28 @@ public class RestaurantController {
 
     return ResponseEntity.created(location).build();
   }
+  @GetMapping("/restaurants")
+  public ResponseEntity<Object> getRestaurants(){
+    List<RestaurantDto> allRestaurants = restaurantService.getAllRestaurants();
 
-//  @GetMapping("/restaurants")
-//  public ResponseEntity<Object> getRestaurants(){
-//
-//  }
-//
+    List<AllRestaurantsResponseDto> responseList = AllRestaurantsResponseDto.toResponse(allRestaurants);
+
+    return ResponseEntity.ok(responseList);
+  }
+
+  @GetMapping("/restaurant/{restaurantId}")
+  public ResponseEntity<Object> getOneRestaurant(@PathVariable @Min(1) Long restaurantId){
+    DetailRestaurantDto singleRestaurant = restaurantService.getSingleRestaurant(restaurantId);
+
+    RestaurantDetailResponseDto responseDto = RestaurantDetailResponseDto.toResponse(singleRestaurant);
+
+    return ResponseEntity.ok(responseDto);
+  }
+
+
+
   @PutMapping("/restaurant/{restaurantId}")
-  public ResponseEntity<Object> getSingleRestaurant(
+  public ResponseEntity<Object> modifyRestaurant(
       @PathVariable @Min(1) Long restaurantId,
       @RequestBody ModifyRestaurantRequestDto modifyRestaurantRequestDto,
       @AuthenticationPrincipal UserDetails userDetails
