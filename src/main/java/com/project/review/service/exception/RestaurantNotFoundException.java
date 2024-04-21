@@ -7,7 +7,7 @@ import com.project.review.common.error.exception.BusinessException;
 
 public class RestaurantNotFoundException extends BusinessException {
 
-  public RestaurantNotFoundException() {
-    super(RESTAURANT_NOT_FOUND);
+  public RestaurantNotFoundException(Long restaurantId) {
+    super("Restaurant ID: "+restaurantId,RESTAURANT_NOT_FOUND);
   }
 }
