@@ -20,7 +20,11 @@ public enum ErrorCode {
 
   //Restaurant
   RESTAURANT_NOT_FOUND(404, "R1", "해당 레스토랑이 존재하지 않습니다"),
-  INVALID_RESTAURANT_RELATION(400, "R2", "잘못된 요청입니다");
+  INVALID_RESTAURANT_RELATION(400, "R2", "잘못된 요청입니다"),
+
+  //Review
+  REVIEW_NOT_FOUND(404, "RV1", "해당 리뷰가 존재하지 않습니다"),
+  INVALID_REVIEW_RELATION(400,"RV2", "잘못된 요청입니다");
 
 
   private final int status;

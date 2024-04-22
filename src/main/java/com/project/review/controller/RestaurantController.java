@@ -33,6 +33,7 @@ public class RestaurantController {
 
   private final RestaurantService restaurantService;
 
+  // 맛집 등록 API
   @PostMapping("/restaurant")
   public ResponseEntity<Object> createRestaurant(
       @RequestBody SaveRestaurantRequestDto saveRestaurantRequestDto,
@@ -50,6 +51,8 @@ public class RestaurantController {
 
     return ResponseEntity.created(location).build();
   }
+
+  // 맛집 전체 조회 API
   @GetMapping("/restaurants")
   public ResponseEntity<Object> getRestaurants(){
     List<RestaurantDto> allRestaurants = restaurantService.getAllRestaurants();
@@ -59,6 +62,7 @@ public class RestaurantController {
     return ResponseEntity.ok(responseList);
   }
 
+  // 맛집 단일 조회 API
   @GetMapping("/restaurant/{restaurantId}")
   public ResponseEntity<Object> getOneRestaurant(@PathVariable @Min(1) Long restaurantId){
     DetailRestaurantDto singleRestaurant = restaurantService.getSingleRestaurant(restaurantId);
@@ -68,8 +72,7 @@ public class RestaurantController {
     return ResponseEntity.ok(responseDto);
   }
 
-
-
+  // 맛집 정보 수정 API
   @PutMapping("/restaurant/{restaurantId}")
   public ResponseEntity<Object> modifyRestaurant(
       @PathVariable @Min(1) Long restaurantId,
@@ -84,6 +87,7 @@ public class RestaurantController {
     return ResponseEntity.ok().build();
   }
 
+  // 맛집 삭제 API
   @DeleteMapping("/restaurant/{restaurantId}")
   public ResponseEntity<Object> deleteRestaurant(
       @PathVariable("restaurantId") @Min(1) Long restaurantId,
