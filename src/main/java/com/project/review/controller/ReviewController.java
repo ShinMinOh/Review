@@ -58,12 +58,12 @@ public class ReviewController {
     return ResponseEntity.noContent().build();
   }
 
-  // 해당 맛집에 등록된 리뷰 페이징 조회 API
-  @GetMapping("/restaurant/{restaurantId}/reviews")
-  public ResponseEntity<Object> getReviews(
-      @PathVariable @Min(1) Long restaurantId,
-
-  ){
-
-  }
+//  // 해당 맛집에 등록된 리뷰 페이징 조회 API
+//  @GetMapping("/restaurant/{restaurantId}/reviews")
+//  public ResponseEntity<Object> getReviews(
+//      @PathVariable @Min(1) Long restaurantId,
+//
+//  ){
+//
+//  }
 }
