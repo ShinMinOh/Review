@@ -11,8 +11,15 @@ import com.project.review.service.exception.RestaurantNotFoundException;
 import com.project.review.service.exception.ReviewNotFoundException;
 import com.project.review.service.exception.UserNotFoundException;
 import com.project.review.service.usecase.DeleteReviewCommand;
+import com.project.review.service.usecase.ReviewDetailDto;
+import com.project.review.service.usecase.ReviewDto;
+
+import com.project.review.service.usecase.ReviewPageDto;
 import com.project.review.service.usecase.SaveReviewCommand;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +59,23 @@ public class ReviewService {
     }
 
     deleteReview(reviewToDelete);
+  }
+
+  @Transactional(readOnly = true)
+  public ReviewDto getRestaurantReview(Long restaurantId, Pageable pageable){
+    Double avgScore = reviewRepository.getAvgScoreByRestaurantId(restaurantId);
+    Slice<ReviewDetailDto> reviews = reviewRepository.findSliceByRestaurantId(
+        restaurantId, pageable);
+
+    ReviewDto totalReviews = ReviewDto.builder().avgScore(avgScore)
+        .reviews(reviews.getContent())
+        .page(ReviewPageDto.builder()
+            .offset(pageable.getPageNumber() * pageable.getPageSize())
+            .limit(pageable.getPageSize())
+            .build()
+        ).build();
+
+    return totalReviews;
   }
 
   private void deleteReview(Review reviewToDelete) {
