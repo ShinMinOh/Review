@@ -9,6 +9,7 @@ import com.project.review.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -49,6 +50,9 @@ public class SecurityConfig {
 
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers("/auth/**").permitAll()
+            .requestMatchers(HttpMethod.GET,"/restaurant/{restaurantId}/reviews/**").permitAll()
+            .requestMatchers(HttpMethod.GET,"/restaurant/{restaurantId}").permitAll()
+            .requestMatchers(HttpMethod.GET,"/restaurants").permitAll()
         .anyRequest().authenticated())         // 나머지 API 인증 필요
 
         // JwtFilter 를 UsernamePasswordAuthenticationFilter 앞에 설치
