@@ -17,6 +17,7 @@
 3. 맛집 CRUD 구현과, 맛집에 달리는 리뷰의 CD구현, 리뷰 내용을 Slice를 이용한 무한 스크롤 구현
 <br></br>
 
+## 기능구현
 ![signup](https://github.com/ShinMinOh/Review/assets/74702677/0c8ca013-953a-43aa-9d17-ba05c0f0f6fa)
 <b>1. 회원가입</b>
 <br>
