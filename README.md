@@ -22,7 +22,7 @@
 <b>1. 회원가입</b>
 <br>
 회원가입시, Request로 이메일과 패스워드를 입력하여 회원가입에 성공하면 Response값으로 해당 이메일을 응답값으로 보내준다.
-</br>
+</br><br></br>
 
 ![signin](https://github.com/ShinMinOh/Review/assets/74702677/3f97bed5-0d38-450f-8496-c42afe70862d)
 <b>2. JWT 인증 방식을 통해 회원가입한 회원이 로그인 할 경우, 토큰 생성</b>
