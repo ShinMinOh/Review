@@ -1,3 +1,4 @@
+Notion 페이지: https://www.notion.so/FoodSense-56f3d2a6a9a546f1a6ee7659baa8e06e?pvs=4
 ![foodsense](https://github.com/ShinMinOh/Review/assets/74702677/39e8d677-95de-415c-b86d-02af9b27d34d)
 ## 소개
 
