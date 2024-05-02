@@ -15,7 +15,7 @@ public enum ErrorCode {
   INTERNAL_SERVER_ERROR(500, "C2", "서버 에러"),
 
   //User
-  USER_NOT_FOUND(404, "U1", "해당 유저가 존재하지 않습니다"),
+  USER_NOT_FOUND(401, "U1", "해당 유저가 존재하지 않습니다"),
   DUPLICATED_USER(400, "U2", "이미 가입되어 있는 유저입니다"),
 
   //Restaurant
