@@ -1,7 +1,29 @@
 spring:
-  profiles:
-    group:
-      local:
-        - localdb
-      test:
-    active: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://52.78.167.249:3306/review?serverTimezone=Asia/Seoul
+    username: root
+    password: 113706
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+  address: 0.0.0.0
+
+logging:
+  level:
+    org.springframework.security: trace
+    com.zaxxer.hikari: debug
+
+jwt:
+  secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK
+
