@@ -15,7 +15,7 @@ public record MemberRequestDto(
     return Member.builder()
         .email(email)
         .password(passwordEncoder.encode(password))
-        .authority(Authority.ROLE_ADMIN)
+        .authority(Authority.ROLE_USER)
         .build();
   }
 
