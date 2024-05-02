@@ -17,8 +17,12 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-###yml
-application-localdb.yml
+### Yml
+application.yml
+
+### Docker
+docker-compose.yml
+Dockerfile
 
 ### IntelliJ IDEA ###
 .idea
@@ -39,4 +43,5 @@ out/
 ### VS Code ###
 .vscode/
 
+### QClass
 src/main/generated
