@@ -7,6 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import java.security.Key;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import org.junit.jupiter.api.Test;
@@ -16,16 +17,16 @@ class TokenProviderTest {
 
   @Test
   void 토큰생성(){
-    byte[] keyBytes = Decoders.BASE64.decode("yUwGn6KqD2n7i9hO2ZejLJAxABKeYhRNQ2QGX4GX28g1SblKzPtS5O2Pd5CdrUx7nRzS5pGUCqjgApHjQdpBxh3Hq");
-    SecretKey secretKey = Keys.hmacShaKeyFor(keyBytes);
+    byte[] keyBytes = Decoders.BASE64.decode("c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK");
+    Key key = Keys.hmacShaKeyFor(keyBytes);
 
     long now = (new Date()).getTime();
 
     // Access Token 생성
     String accessToken = Jwts.builder()                                         // JwtBuilder 객체를 생성 하고, Jwts.builder() 메서드를 이용
-        .setSubject("1")                                                    //payload "sub": "1"
-        .claim("auth", "ROLE_ADMIN")                                    //payload "auth": "ROLE_ADMIN"
-        .signWith(secretKey, SignatureAlgorithm.HS512)
+        .setSubject("2")                                                    //payload "sub": "1"
+        .claim("auth", "ROLE_USER")                                    //payload "auth": "ROLE_ADMIN"
+        .signWith(key, SignatureAlgorithm.HS512)
         .compact();
 
     System.out.println(accessToken);
