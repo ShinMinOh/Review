@@ -54,7 +54,8 @@ public class RestaurantController {
 
   // 맛집 전체 조회 API
   @GetMapping("/restaurants")
-  public ResponseEntity<Object> getRestaurants(){
+  public ResponseEntity<Object> getRestaurants(
+  ) {
     List<RestaurantDto> allRestaurants = restaurantService.getAllRestaurants();
 
     List<AllRestaurantsResponseDto> responseList = AllRestaurantsResponseDto.toResponse(allRestaurants);
