@@ -1,13 +1,23 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://52.78.167.249:3306/review?serverTimezone=Asia/Seoul
-    username: root
+    url: jdbc:mysql://15.164.234.108:3306/review?serverTimezone=Asia/Seoul
+#    url: jdbc:mysql://localhost:3306/review?serverTimezone=Asia/Seoul
+#    username: root
+    username: min
     password: 113706
+
+  data:
+    redis:
+      repositories:
+        enabled: false
+      host: redis-elasticcache.vjzb0s.ng.0001.apn2.cache.amazonaws.com
+      port: 6379
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
+    #  ddl-auto: validate
       ddl-auto: update
     show-sql: true
     open-in-view: false
@@ -15,9 +25,13 @@ spring:
       hibernate:
         format_sql: true
 
+
+
 server:
   port: 8080
   address: 0.0.0.0
+
+
 
 logging:
   level:
